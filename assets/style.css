@@ -1,0 +1,41 @@
+body {
+    background-color: rgb(38, 38, 252);
+    display:flex;
+}
+/* define quiz area style */
+.grid {
+    width: 650px;
+    height: 500px;
+    margin: 0px;
+    background-color: rgb(177, 175, 175);
+    border: 4px solid black;
+}
+
+.grid h1{
+    background-color: rgb(57, 57, 255);
+    text-align: center;
+}
+
+.grid #question {
+    font-size: 25px;
+    color: black;
+}
+
+/* button style */
+#butt, #butt1, #butt2, #butt3 {
+    background-color: brown;
+    width: 100px;
+    height: 50px;
+    color:red;
+    border: 3px solid black;
+
+}
+
+#sQuiz {
+    background-color: silver;
+    width: 120px;
+    height: 80px;
+    border: 3px solid black;
+}
+
+

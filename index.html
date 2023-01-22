@@ -4,10 +4,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/style.css"
-    <title>Document</title>
+    <link rel="stylesheet" href="./assets/style.css">
+    <title>Javascript Quiz Time</title>
 </head>
 <body>
+
+    <!--create page layout-->
+    <div class="grid">
+        <div id="quiz">
+
+            <!--quiz title-->
+            <h1>Quiz Time</h1>
+
+            <!-- list questions-->
+            <p id="questions"></p>
+
+            <!-- create clickable answer space in buttons-->
+            <div class="buttons">
+                <button id="butt"><span id="choice"></span></button>
+                <button id="butt1"><span id="choice1"></span></button>
+                <button id="butt2"><span id="choice2"></span></button>
+                <button id="butt3"><span id="choice3"></span></butoon>
+            </div>
+        </div>
+    </div>
+    <button id="sQuiz">Start Quiz</button>
+    <!-- link js file-->
     <script src="./assets/script.js"></script>
 </body>
 </html>
