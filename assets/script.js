@@ -1,7 +1,14 @@
 let score = 0;
 let timeLeft = 60;
 let question = 0;
-let startQuiz = document.querySelector("sQuiz");
+let questionNumber = 0;
+let startQuiz = document.querySelector("#start");
+let container = document.getElementById("#container");
+let questionsBox = document.getElementById("#questionsBox");
+let choicesText = document.querySelectorAll(".answer");
+let questionText = document.querySelector("#question");
+let enter = document.querySelector("#enter");
+const body = document.getElementById("body");
 
 
 let questionsArray = [
@@ -106,15 +113,15 @@ let questionsArray = [
 
 // create a function to call on question array
 function showQuestions() {
-    let object = questionArray[questionNumber];
+    let object = questionsArray[questionNumber];
     let {question, choice1, choice2, choice3, choice4} = object;
     let choices = [choice1, choice2, choice3, choice4];
 
     questionText.textContent = question;
 //iterate through choices with forloop
-    for (var i = 0; i < choicesArray.length; i++) {
+    for (let i = 0; i < choices.length; i++) {
         let selection = choicesText[i];
-        let choice = choiceArray[i];
+        let choice = choices[i];
         selection.innerHTML = choice;
     }
 }
@@ -122,29 +129,121 @@ function showQuestions() {
 //start event
 startQuiz.addEventListener("click", function() {
     showQuestions();
-    for (var i =0; i < 10; i++) {
+    for (let i = 0; i < 4; i++) {
         let selection = choicesText[i];
-        selection.addEventListener("click", function(pick) {
+        selection.addEventListener("click", function(e) {
             
             //register user selection from array
-            const userChoice = pick.currentTarget.textContent
-            const rightChoice = questionsArray[question].answer
+            const userChoice = e.currentTarget.textContent;
+            const rightChoice = questionsArray[question].answer;
             //if answer is right, + point
             if (userChoice === rightChoice) {
                 score++;
+                
             }
 
-            question++;
+            questionNumber++;
             //when all questions run through quiz ends
-            if (question >= questionsArray.length) {
+            if (questionNumber >= questionsArray.length) {
                 clearQuestion();
                 clearInterval(interval);
                 timer.innerHTML = "Quiz is Over";
                 return;
             }
-            showQuestions();
+            
         });
-    }
+    } showQuestions();
 })
 
 //create timer
+function setTime() {
+    let interval = setInterval(function () {
+        timeLeft--;
+        timer = document.getElementById("timer");
+        if (timeLeft === 0) {
+            clearInterval();
+            clearQuestion();
+        } 
+    }, 1000)
+}
+
+//clear out options and question
+function clearQuestion() {
+    questionsBox.setAttribute("style", "width:250px; height: 150px");
+    container.setAttribute("style", "width: 30%");
+    questionsBox.style.display = "none";
+    userName.setAttribute("style", "visibility: visible");
+    enter.style.visibility = "visible";
+}
+
+//save score and name local
+let savedScore = [];
+let localStorageContent = localStorage.getItem('High Scores')
+localStorageContent = JSON.parse(localStorageContent);
+
+if(localStorageContent !== null) {
+    savedScore = localStorageContent
+}
+
+console.log(localStorageContent);
+
+enter.addEventListener("click", function(event) {
+    event.preventDefault();
+
+  console.log(body);
+  console.log(event);
+
+  let isNumber = typeof Number(enterName.value) === 'number'
+
+
+  if(enterName.value === ''  ) {
+      alert("You need to enter a name!") 
+      return
+  } 
+
+  enterName.value = enterName.value; 
+  
+  var scoreText = `Score: ${score} You finished the quiz! in ${timerScore} seconds`;
+  var currentScore = {'name': enterName.value, 'scoreTimer': scoreText};
+
+  highscoresArr.push(currentScore);
+  localStorage.setItem('High Scores', JSON.stringify(savedScore));
+  var userDisplayName = ""; ///
+
+  for(var i = 0; i < savedScore.length; i++){
+    savedScore[i]
+    console.log(savedScore[i]);
+    userDisplayName += `
+    <div id="name-container">
+  ${'Player Name: ' +  savedScore[i].name} 
+  </div>
+  <div>
+    ${savedScore[i].scoreTimer}
+  </div>`;
+  }
+
+  body.innerHTML = `         
+  <div  id="hsBanner">
+    <h1>HIGH SCORES!</h1>
+  </div>
+  <div id="scoresContainer">
+    ${userDisplayName}
+  </div>`;
+  
+
+  localStorage.setItem('Player Score/Time', scoreText)
+
+  console.log("Player Name: " + enterName.value + scoreText); 
+
+  let savedName = localStorage.getItem('Player Name');
+  let userRecord = localStorage.getItem('Player Score/Time');
+
+
+  
+if (savedName) {
+	enterName.textContent = savedName;
+} else if (userRecord) {
+    scoreText.textContent = userRecord
+}
+
+});

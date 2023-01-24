@@ -7,28 +7,47 @@
     <link rel="stylesheet" href="./assets/style.css">
     <title>Javascript Quiz Time</title>
 </head>
-<body>
-
+<body></body>
     <!--create page layout-->
-    <div class="grid">
-        <div id="quiz">
+    <div id="container">
 
-            <!--quiz title-->
-            <h1>Quiz Time</h1>
+        <div id="questionsBox" class="questionsDiv">
 
-            <!-- list questions-->
-            <p id="question"></p>
-
-            <!-- create clickable answer space in buttons-->
-            <div class="buttons">
-                <button id="butt"><span id="choice"></span></button>
-                <button id="butt1"><span id="choice1"></span></button>
-                <button id="butt2"><span id="choice2"></span></button>
-                <button id="butt3"><span id="choice3"></span></butoon>
+            <h1 id="question">Good Luck!</h1>
+           
+            <div id="quiz-question" class="answer-container">                   
+                <div class="answer"  value="1" ></div>
+                <br>
+                <div class="answer"  value="2" ></div>
+                <br>
+                <div class="answer"  value="3"></div>
+                <br>
+                <div class="answer"  value="4"></div>
             </div>
+
         </div>
+
+        <div class="wrapper">
+                       <h3 class="quiz-page"></h3>
+                        <!-- fix styling for enter name and make it functional with sending it to javvascript -->
+                        <input id="enter-name" type="text" name="name-input" placeholder="Type Your Name">
+                        <input id="enter" type="submit" value="Submit Quiz to Highscores">
+                    
+        </div>
+<!-- BUTTONS -->
+
+        <div class="buttons">
+
+            <div id="startButton">                 
+                <button id="start"> start </button>
+            </div>
+        </div>    
+           
     </div>
-    <button id="sQuiz">Start Quiz</button>
+    <div id="timer-div">
+        <h2 id="countdown"></h2>
+        <h2 id="scoreBoard">  </h2>
+    </div>  
     <!-- link js file-->
     <script src="./assets/script.js"></script>
 </body>
