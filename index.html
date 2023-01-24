@@ -4,51 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/style.css">
-    <title>Javascript Quiz Time</title>
+    <title>Quiz Time</title>
 </head>
-<body></body>
-    <!--create page layout-->
-    <div id="container">
-
-        <div id="questionsBox" class="questionsDiv">
-
-            <h1 id="question">Good Luck!</h1>
-           
-            <div id="quiz-question" class="answer-container">                   
-                <div class="answer"  value="1" ></div>
-                <br>
-                <div class="answer"  value="2" ></div>
-                <br>
-                <div class="answer"  value="3"></div>
-                <br>
-                <div class="answer"  value="4"></div>
-            </div>
-
+<body>
+    <main id="quizSection">
+        <h1 id="quizTitle">It's Quiz Time</h1>
+        <div class="quizContainer" id="quiz">
+            <h2 id="question"></h2>
+            <li>
+                <input type="radio" id="a" name="answer" class="answer" value="a"/>
+            </li>
+            <li>
+                <input type="radio" id="b" name="answer" class="answer" value="b"/>
+            </li>
+            <li>
+                <input type="radio" id="c" name="answer" class="answer" value="c"/>
+            </li>
+            <li>
+                <input type="radio" id="d" name="answer" class="answer" value="d"/>
+            </li>
+            <button id="submit" value="Submit">Submit</button>
         </div>
-
-        <div class="wrapper">
-                       <h3 class="quiz-page"></h3>
-                        <!-- fix styling for enter name and make it functional with sending it to javvascript -->
-                        <input id="enter-name" type="text" name="name-input" placeholder="Type Your Name">
-                        <input id="enter" type="submit" value="Submit Quiz to Highscores">
-                    
-        </div>
-<!-- BUTTONS -->
-
-        <div class="buttons">
-
-            <div id="startButton">                 
-                <button id="start"> start </button>
-            </div>
-        </div>    
-           
-    </div>
-    <div id="timer-div">
-        <h2 id="countdown"></h2>
-        <h2 id="scoreBoard">  </h2>
-    </div>  
-    <!-- link js file-->
-    <script src="./assets/script.js"></script>
+    </main>
 </body>
 </html>
