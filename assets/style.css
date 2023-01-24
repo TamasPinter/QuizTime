@@ -30,12 +30,20 @@ button#submit {
     font-size: 1rem;
     margin: 1rem 0 0 40%;
     box-shadow: 0 5px rgb(17, 15, 19);
-  }
-  button#submit:hover {
+}
+button#submit:hover {
     background-color: rgb(17, 15, 19);
-  }
-  button#submit:active {
+}
+button#submit:active {
     background-color: rgb(41, 49, 51);
     box-shadow: 0 5px rgb(188, 155, 219);
     transform: translateY(4px);
-  }
+}
+
+#question {
+    margin: 0 0 2rem 0;
+}
+h1 {
+    text-align: center;
+    z-index: -1;
+}

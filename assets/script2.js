@@ -1,104 +1,138 @@
-let timeLeft = 60;
-let questionArrayIndex = 0;
-let timeInterval = ('');
+const question = document.getElementById('question');
+const a = document.getElementById('a+');
+const b = document.getElementById('b+');
+const c = document.getElementById('c+');
+const btn = document.getElementById('submit');
+const all_answer = document.querySelectorAll('.answer');
+
+//log all questions in a const
+const quizData = [
+    {
+        question: 'Who owns Star Wars?',
+        a: 'ESPN',
+        b: 'Time Warner',
+        c: 'Disney',
+        d: 'Universal Studios',
+        correct: 'c',
+    },
+    {
+        question: 'Where would I embedd my link to a CSS stylesheet?',
+        a: 'Footer Tag',
+        b: 'JS script document',
+        c: 'Body tag',
+        d: 'Head tag',
+        correct: 'd',
+    },
+    {
+        question: '2005 UEFA Champions League final was between?',
+        a: 'Chelsea FC and Porto FC',
+        b: 'AC Milan and Liverpool FC',
+        c: 'Manchester United and Sparta Prague',
+        d: 'Bayern Munich and PSG',
+        correct: 'b',
+    },
+    {
+        question: 'Front End, Back End and _____',
+        a: 'Processor Development',
+        b: 'Social Media Development',
+        c: 'All Stack Development',
+        d: 'Full Stack Development',
+        correct: 'd',
+    },
+    {
+        question: 'James Cameron is behind which blockbuster franchise?',
+        a: 'Batman',
+        b: 'Avatar',
+        c: 'Avengers',
+        d: 'Fast and the Furious',
+        correct: 'b',
+    },
+    {
+        question: 'Which is not part of Semantic coding?',
+        a: '<article>',
+        b: '<div>',
+        c: '<aside>',
+        d: '<footer>',
+        correct: 'b',
+    },
+    {
+        question: 'Canada has a total of ___ teams in Major League Baseball',
+        a: '0',
+        b: '1',
+        c: '2',
+        d: '3',
+        correct: 'b',
+    },
+    {
+        question: 'JS script files should typically be linked where?',
+        a: 'In the <head>',
+        b: 'At the bottom of the <body>',
+        c: 'At the top of the <body>',
+        d: 'In the <footer>',
+        correct: 'b',
+    },
+    {
+        question: 'Who was the brother of The Hound in Game of Thrones?',
+        a: 'The Mountain',
+        b: 'The Viper',
+        c: 'The Faceless Man',
+        d: 'The Mad king',
+        correct: 'a',
+    },
+    {
+        question: 'CSS stands for:',
+        a: 'Central Secret Service',
+        b: 'Change Script Syndicate',
+        c: 'Control Style Sheet',
+        d: 'Cascading Style Sheet',
+        correct: 'd',
+    },
+];
+
+let index = 0;
 let score = 0;
-let buttons = document.querySelector("#buttons");
-let startScreen = document.querySelector(".startScreen");
-let startButton = document.querySelector(".startButton");
-let quizScreen = document.querySelector(".quizScreen");
-let questionText = document.querySelector("#questionText");
-let container = document.querySelector(".container");
-let qTitle = document.querySelector("#qTitle");
-let timerEl = document.querySelector("#count");
-
-// set questions with q=question and use correctindex assigneed to buttons to log answers
-function fillQuestions(q, onAnswered) {
-    questionText.querySelector("h3").innerText = q.question;
-    q.answerArr.forEach((option, i) => {
-      try {
-        let old_button = buttons.querySelector(
-          "button:nth-child(" + (i + 1) + ")"
-        );
-        let new_element = old_button.cloneNode(true);
-        new_element.innerHTML = option;
-        new_element.addEventListener("click", () => onAnswered(q.correctIndex === i));
-        old_button.parentNode.replaceChild(new_element, old_button);
-      } catch (error) {
-        console.error('Error while draw the ' + (i + 1) +  "th button:", error);
-      }
+//get the getSelected answer
+function getSelected() {
+    let ans = undefined;
+    all_answer.forEach((answer) => {
+        if (answer.checked) {
+            ans = answer.id;
+        }
     });
-  }
-
-  //questionarray bank, question/answer/correct choice
-    let questionArray = [
-    {
-      question: "How old am I",
-      answerArr: ["12", "24", "38", "34"],
-      correctIndex: 2,
-    },
-    {
-      question: "Where am I",
-      answerArr: ["Home", "Moon", "DisneyLand", "Space"],
-      correctIndex: 0,
-    },
-    {
-      question: "What do we type on",
-      answerArr: ["Floor", "Keys", "Walls", "Nothing"],
-      correctIndex: 1,
-    },
-    {
-      question: "Where is Carmen San Diego",
-      answerArr: [ "San Diego", "Missing", "Space", "Underwater"],
-      correctIndex: 0,
-    }
-  ];
-  
-  //start button, set counter and call questions
-  
-  startButton.addEventListener("click", setCounter);
-  
-  function setCounter() {
-    timeLeft = 60;
-    timeInterval = null;
-    questionArrayIndex = 0;
-    if (event.target.matches("button")) {
-      startScreen.setAttribute("style", "display: none ");
-      quizScreen.setAttribute("style", "display: block ");
-    }
-  
-    let timeInterval = setInterval(function () {
-      timeLeft--;
-      timerEl.textContent = "time left: " + timeLeft;
-  
-      if (timeLeft === 0) {
-        clearInterval(timeInterval);
-        endScreen();
-        let totalScore = score;
-      }
-    }, 1000);
-  
-    displayQuestions();
-  }
-  
-  //show questions based on questionarray and index, add score and refresh
-  function displayQuestions() {
-    if (questionArrayIndex >= questionArray.length) {
-      if (timeInterval) {
-        clearInterval(timeInterval);
-      }
-      endScreen();
-      return;
-    }
-     currentLayout = questionArray[questionArrayIndex];
-    fillQuestions(currentLayout, (rightAnswer) => {
-      if (!rightAnswer) {
-        timerEl.textContent = "time left: " + timeLeft;
-      }
-      score++;
-      questionArrayIndex++;
-      displayQuestions();
+    return ans;
+}
+//disselect all answer
+function deselectans() {
+    all_answer.forEach((answer) => {
+        answer.checked = false;
     });
-  }
-  
-
- 
+}
+//load the quiz data
+function getquiz() {
+    deselectans();
+    question.innerText = quizData[index].question;
+    a.innerText = quizData[index].a;
+    b.innerText = quizData[index].b;
+    c.innerText = quizData[index].c;
+    d.innerText = quizData[index].d;
+}
+//move forward the quiz
+function startquiz() {
+    btn.addEventListener('click', () => {
+        let ans = getSelected();
+        if (ans) {
+            if (ans == quizData[index].correct) {
+                score++;
+            }
+        }
+        index++;
+        if (index < quizData.length) {
+            getquiz();
+        } else {
+            alert('score :' + score);
+            location.reload();
+        }
+    });
+}
+getquiz();
+startquiz();
