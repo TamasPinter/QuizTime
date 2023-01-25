@@ -2,11 +2,14 @@ const question = document.getElementById('question');
 const a = document.getElementById('a+');
 const b = document.getElementById('b+');
 const c = document.getElementById('c+');
+const d = document.getElementById('d+');
 const btn = document.getElementById('submit');
 const all_answer = document.querySelectorAll('.answer');
 
+
+
 //log all questions in a const
-const quizData = [
+const quizQuestions = [
     {
         question: 'Who owns Star Wars?',
         a: 'ESPN',
@@ -91,7 +94,7 @@ const quizData = [
 
 let index = 0;
 let score = 0;
-//get the getSelected answer
+//log the selected choice
 function getSelected() {
     let ans = undefined;
     all_answer.forEach((answer) => {
@@ -101,7 +104,7 @@ function getSelected() {
     });
     return ans;
 }
-//disselect all answer
+
 function deselectans() {
     all_answer.forEach((answer) => {
         answer.checked = false;
@@ -110,29 +113,51 @@ function deselectans() {
 //load the quiz data
 function getquiz() {
     deselectans();
-    question.innerText = quizData[index].question;
-    a.innerText = quizData[index].a;
-    b.innerText = quizData[index].b;
-    c.innerText = quizData[index].c;
-    d.innerText = quizData[index].d;
+    question.innerText = quizQuestions[index].question;
+    a.innerText = quizQuestions[index].a;
+    b.innerText = quizQuestions[index].b;
+    c.innerText = quizQuestions[index].c;
+    d.innerText = quizQuestions[index].d;
 }
-//move forward the quiz
+//quiz process and logic
 function startquiz() {
     btn.addEventListener('click', () => {
         let ans = getSelected();
+        Timer();
         if (ans) {
-            if (ans == quizData[index].correct) {
+            if (ans == quizQuestions[index].correct) {
                 score++;
             }
         }
         index++;
-        if (index < quizData.length) {
+        if (index < quizQuestions.length) {
             getquiz();
         } else {
             alert('score :' + score);
+            let finalScore = score;
+            localStorage.setItem("score", JSON.stringify(finalScore));
             location.reload();
         }
     });
 }
+
+
+
 getquiz();
 startquiz();
+
+//timer
+let timeLeft = 60;
+let time = setInterval(Timer, 1000);
+
+function Timer() {
+    document.getElementById('timer').innerHTML = timeLeft + "seconds left!";
+    timeLeft--;
+    if (timeLeft == 0) {
+        clearInterval(time);
+        alert('You are out of time!');
+        getquiz();
+        startquiz();
+    } 
+}
+
