@@ -3,7 +3,7 @@ const a = document.getElementById('a+');
 const b = document.getElementById('b+');
 const c = document.getElementById('c+');
 const d = document.getElementById('d+');
-const btn = document.getElementById('submit');
+const btn = document.querySelector('#submit');
 const all_answer = document.querySelectorAll('.answer');
 
 
@@ -122,11 +122,20 @@ function getquiz() {
 //quiz process and logic
 function startquiz() {
     btn.addEventListener('click', () => {
-        let ans = getSelected();
         Timer();
+        let ans = getSelected();
+        getquiz();
+        
+        
+        //show message if correct or wrong and add or subtract points
         if (ans) {
             if (ans == quizQuestions[index].correct) {
                 score++;
+                alert('That is Correct! You get 1 point!');
+            }
+            else {
+                score--;
+                alert('That is Wrong! You lose 1 point!'); 
             }
         }
         index++;
@@ -141,23 +150,27 @@ function startquiz() {
     });
 }
 
+//create quiz start function, check if answers are correct or false and take away time if false
 
 
-getquiz();
-startquiz();
 
-//timer
-let timeLeft = 60;
-let time = setInterval(Timer, 1000);
+
+
+
+
 
 function Timer() {
+    let timeLeft = 60;
+    let time = setInterval(function () {
     document.getElementById('timer').innerHTML = timeLeft + "seconds left!";
     timeLeft--;
     if (timeLeft == 0) {
         clearInterval(time);
         alert('You are out of time!');
         getquiz();
-        startquiz();
     } 
+}, 1000); 
 }
 
+
+startquiz();
