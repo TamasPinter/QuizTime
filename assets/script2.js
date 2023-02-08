@@ -5,6 +5,7 @@ const c = document.getElementById('c+');
 const d = document.getElementById('d+');
 const btn = document.querySelector('#submit');
 const all_answer = document.querySelectorAll('.answer');
+let highScore = document.querySelector('#high-score');
 
 
 
@@ -125,6 +126,7 @@ function startquiz() {
         Timer();
         let ans = getSelected();
         getquiz();
+       
         
         
         //show message if correct or wrong and add or subtract points
@@ -144,13 +146,24 @@ function startquiz() {
         } else {
             alert('score :' + score);
             let finalScore = score;
-            localStorage.setItem("score", JSON.stringify(finalScore));
+            //ask for user name
+            let name = prompt('Please enter your name');
+            //save score and name to local storage
+            localStorage.setItem("name", name);
+            localStorage.setItem("score", finalScore);
+            
             location.reload();
+            
         }
     });
 }
 
-//create quiz start function, check if answers are correct or false and take away time if false
+//load saved score to high score
+function loadScore() {
+    let savedName = localStorage.getItem("name");
+    let savedScore = localStorage.getItem("score");
+    highScore.innerHTML = savedName + " " + savedScore;
+}
 
 
 
@@ -174,3 +187,4 @@ function Timer() {
 
 
 startquiz();
+loadScore();

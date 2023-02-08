@@ -16,13 +16,14 @@ I've been putting this quiz together to demonstrate some new concepts I am learn
 
 ## Installation
 
-No need for installation, simply open the index file and try to get all the answers right.
+No need for installation, simply open the index file and try to get all the answers right. Please visit the github repo for the code: 
+https://github.com/TamasPinter/QuizTime 
 
 ## Usage
 
 Once opening the page, the quiz timer will begin. Proceed through the quiz and do your best to answer all 10 questions. Once you finish all the questions, your score will pop up. If you run out of time the quiz will end, you can restart by pressing the submit button again.
 
-
+.
     ![screenshot1](./assets/screenshot1.jpg)
 
   
